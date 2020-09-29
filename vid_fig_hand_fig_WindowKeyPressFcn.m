@@ -2,8 +2,6 @@ function vid_fig_hand_fig_WindowKeyPressFcn(hObject, eventdata)
 
 global vid_fig_hand
 
-ErrDispClear_Callback(vid_fig_hand.ErrDispClear,[]);
-
 if strcmp(eventdata.Key,'rightarrow')
     if isempty(eventdata.Modifier)
         % set focus to the button
