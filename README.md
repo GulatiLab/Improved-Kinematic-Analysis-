@@ -1,2 +1,2 @@
-# Improved-Kinematic-Analysis-
-The Reach Video Analysis GUI with some new features and many quality of life improvements.
+# Reach-Video-Analysis-GUI
+A MATLAB GUI for kinematic tracking of reach trials
