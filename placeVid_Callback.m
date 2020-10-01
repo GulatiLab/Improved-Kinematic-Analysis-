@@ -27,13 +27,6 @@ if isempty(logged_Data)
 else
     logged_trials = logged_Data{:,1};
 end
-trial_idx = find(logged_trials == str2double(vid_name_no), 1);
-if isempty(trial_idx)
-    vid_fig_hand.ReachMarks = nan(vid_obj.vidnumFrames,2);
-else
-    vid_fig_hand.ReachMarks = vid_fig_hand.logged_trajectories{trial_idx};
-end
-
 
 try
     vid_obj.obj = VideoReader(vid_name);
@@ -54,6 +47,13 @@ vid_obj.vidnumFrames = vidnumFrames;
 
 vidHeight = vid_obj.obj.Height;
 vidWidth = vid_obj.obj.Width;
+
+trial_idx = find(logged_trials == str2double(vid_name_no), 1);
+if isempty(trial_idx)
+    vid_fig_hand.ReachMarks = nan(vid_obj.vidnumFrames,2);
+else
+    vid_fig_hand.ReachMarks = vid_fig_hand.logged_trajectories{trial_idx};
+end
 
 % Create a MATLAB® movie structure array, s.
 
