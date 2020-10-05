@@ -21,6 +21,11 @@ set(vid_fig_hand.RowEditHdPLTTOUCH, 'String', '');
 set(vid_fig_hand.RowEditHdRTRCTONSET, 'String', '');
 set(vid_fig_hand.RowEditHdTRLOUTCOME, 'String', (2));
 
+set(vid_fig_hand.ConfOverwrite,'Visible',false);
+set(vid_fig_hand.CancelLog,'Visible',false);
+set(vid_fig_hand.ChangeTrialNum,'Visible',false);
+set(vid_fig_hand.AltTrialNum,'Visible',false);
+
 logged_Data = get(vid_fig_hand.uit,'Data');
 if isempty(logged_Data)
     logged_trials = [];
