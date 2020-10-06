@@ -21,7 +21,7 @@ rtrctonset_num = str2double(rtrctonset);
 trlOutcome = get(vid_fig_hand.RowEditHdTRLOUTCOME, 'String');
 trlOutcome = num2str(trlOutcome);
 
-rchtrajectory = [];
+rchTrajectory = [];
 
 %Sanity Checks
 if mod(trial_row,1) ~= 0
@@ -120,9 +120,12 @@ if trlOutcome ~= '2'
             %warning( 'Pellet was touched but no retract recorded. Trial not logged.');
             %return
         end
-        rchtrajectory = vid_fig_hand.ReachMarks;
-        rchtrajectory = rchtrajectory(rchonset_num(length(rchonset_num)):rtrctonset_num,:);
-        if sum(isnan(rchtrajectory(:)))
+        
+        trajectory_window = rchonset_num(length(rchonset_num)):rtrctonset_num;
+        rchTrajectory_snapshot = vid_fig_hand.ReachMarks(trajectory_window,:);
+        rchTrajectory = nan(size(vid_fig_hand.ReachMarks));
+        rchTrajectory(trajectory_window,:) = rchTrajectory_snapshot;
+        if sum(isnan(rchTrajectory_snapshot(:)))
             %Should there be a way to bypass the trajectory recording? Maybe throw the warning but let the trial get logged?
             displayErrorMessage( 'Reach Trajectory has unrecorded frames. Be sure to mark a position for both the Reach Onset frame and the Retract Onset frame. Trial not logged.');
             return
@@ -167,19 +170,19 @@ else
 end
 if isempty(ins_idx)
     newData = [oldData; newRow];
-    vid_fig_hand.logged_trajectories = [vid_fig_hand.logged_trajectories; {rchtrajectory}];
+    vid_fig_hand.logged_trajectories = [vid_fig_hand.logged_trajectories; {rchTrajectory}];
 
 elseif oldData{ins_idx,1} == trial_row
     if(overwrite)
         %replace
         newData = oldData;
         newData(ins_idx,:) = newRow;
-        vid_fig_hand.logged_trajectories(ins_idx) = {rchtrajectory};
+        vid_fig_hand.logged_trajectories(ins_idx) = {rchTrajectory};
     
     else
         %confirm replace
         beep;
-        set(vid_fig_hand.ErrDispText,'String','Data log already exists for current trial number. Select ''Overwrite'' below to overwrite the data of the current trial number. Or enter a new trial number to use for this trial.');
+        set(vid_fig_hand.ErrDispText,'String','Data log already exists for current trial number. Select ''Overwrite'' below to overwrite the data of the current trial number. Or enter a new trial number to use for this trial. Note that changing the trial number to a previously logged number will load the trajectory recorded in that log');
         set(vid_fig_hand.ErrDispText,'BackgroundColor', [1.0 0.95 0.6 ]);
         set(vid_fig_hand.ErrDispText,'Visible',true);
         set(vid_fig_hand.ErrDispClear,'Visible',false);
@@ -195,7 +198,7 @@ elseif oldData{ins_idx,1} == trial_row
 else
     %insert
     newData = [oldData(1:ins_idx-1,:); newRow; oldData(ins_idx:size(oldData,1),:)];
-    vid_fig_hand.logged_trajectories = [vid_fig_hand.logged_trajectories(1:ins_idx-1,:); {rchtrajectory}; vid_fig_hand.logged_trajectories(ins_idx:size(oldData,1),:)];
+    vid_fig_hand.logged_trajectories = [vid_fig_hand.logged_trajectories(1:ins_idx-1,:); {rchTrajectory}; vid_fig_hand.logged_trajectories(ins_idx:size(oldData,1),:)];
 end
 
 set(vid_fig_hand.uit,'Data',newData)

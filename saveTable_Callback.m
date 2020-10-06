@@ -13,7 +13,11 @@ s = strcat(vid_dir,'\',fileFirstString,'man_vid_outcomes',todayDateString ,'.mat
 
 data = get(vid_fig_hand.uit,'Data');
 data(:,1) = cellfun(@num2str,data(:,1),'UniformOutput',false);
-data(:,4) = vid_fig_hand.logged_trajectories;
+traj_cells = vid_fig_hand.logged_trajectories;
+for i = 1:length(traj_cells)
+    traj_cells{i}(isnan(traj_cells{i})) = [];
+end
+data(:,4) = traj_cells;
 
 save(s,'data')
 

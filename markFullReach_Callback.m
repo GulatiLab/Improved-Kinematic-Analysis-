@@ -24,7 +24,7 @@ next_frame = fnl_rch_onset - 1;
 while rtrct_onset > next_frame
     next_frame = next_frame + 1;
     updateFrameFunction(next_frame, vid_obj);
-    vid_fig_hand.vid_ax
+    vid_fig_hand.vid_ax;
     [x, y] = ginput(1);
     vid_fig_hand.ReachMarks(next_frame,:) = [x y];
 end

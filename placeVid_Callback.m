@@ -37,7 +37,7 @@ try
     vid_obj.obj = VideoReader(vid_name);
 catch
     beep
-    warning( 'File named in edit box does not appear to be a usable movie file');
+    displayErrorMessage( 'File named in edit box does not appear to be a usable movie file');
     return
 end
 
