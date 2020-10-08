@@ -48,8 +48,6 @@ set(vid_fig_hand.fig, 'WindowKeyPressFcn', @vid_fig_hand_fig_WindowKeyPressFcn);
 
 clear VID_DIR;
 
-addpath(pwd);
-cd('../')
 
 VID_DIR = pwd;
 addpath(VID_DIR); % add to the path the directory of the videos

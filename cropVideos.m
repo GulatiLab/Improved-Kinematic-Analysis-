@@ -6,8 +6,6 @@ clc; clear;
 y_crop = [100,380];
 x_crop = [50,400]; %Second value here MUST be <=480
 
-filepath = 'D:\temp';
-cd(filepath);
 filenames = dir('*.avi');
 
 % Looping!
