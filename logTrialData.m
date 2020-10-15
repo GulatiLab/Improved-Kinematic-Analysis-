@@ -75,7 +75,7 @@ switch trlOutcome
         elseif ~isempty(plttouch)
             displayErrorMessage( 'Trial outcome indicates no pellet on arm but Pellet Touch record not empty. Trial not logged.');
             return
-        elseif isempty(rtrctonset)
+        elseif ~isempty(rtrctonset)
             displayErrorMessage( 'Trial outcome indicates no pellet on arm but Retract Onset record not empty. Trial not logged.');
             return
         end
