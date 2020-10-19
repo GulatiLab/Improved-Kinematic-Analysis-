@@ -11,7 +11,7 @@ vid_name_no = vid_name_no(end-4);
 if vid_name(end-5) ~= '-'
     vid_name_no = strcat(vid_name(end-5), vid_name_no);
     if vid_name(end-6) ~= '-'
-       vid_name_no = strcat(vid_name(end-6),vid_name(end-5), vid_name_no);
+       vid_name_no = strcat(vid_name(end-6), vid_name_no);
     end
 end
 
