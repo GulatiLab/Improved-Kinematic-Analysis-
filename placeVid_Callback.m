@@ -57,7 +57,11 @@ trial_idx = find(logged_trials == str2double(vid_name_no), 1);
 if isempty(trial_idx)
     vid_fig_hand.ReachMarks = nan(vid_obj.vidnumFrames,2);
 else
-    vid_fig_hand.ReachMarks = vid_fig_hand.logged_trajectories{trial_idx};
+    if size(vid_fig_hand.logged_trajectories{trial_idx},1) == vid_obj.vidnumFrames
+        vid_fig_hand.ReachMarks = vid_fig_hand.logged_trajectories{trial_idx};
+    else
+        vid_fig_hand.ReachMarks = nan(vid_obj.vidnumFrames,2);
+    end
 end
 
 % Create a MATLAB® movie structure array, s.
