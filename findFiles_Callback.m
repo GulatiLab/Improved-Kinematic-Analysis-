@@ -2,10 +2,10 @@ function findFiles_Callback(hObject, eventdata)
 
 global vid_fig_hand;
 
-vid_dir = get(vid_fig_hand.VID_DIR_handle, 'String');
+vid_fig_hand.vid_dir = get(vid_fig_hand.VID_DIR_handle, 'String');
 % get what is inside the folder
-cd(vid_dir);
-Infolder = dir(vid_dir);
+% cd(vid_dir);
+Infolder = dir(vid_fig_hand.vid_dir);
 video_files_cellArr = {Infolder(~[Infolder.isdir]).name}.';
 
 indexed_by_movies = contains(video_files_cellArr, '.avi');
