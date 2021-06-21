@@ -53,5 +53,6 @@ set(vid_fig_hand.listFiles_handle,'Value',1); % Add this line so that the list c
 set(vid_fig_hand.listFiles_handle,'String',video_files_cellArr(i))
 vid_fig_hand.logged_trajectories = {};
 set(vid_fig_hand.uit,'Data',{});
+set(vid_fig_hand.TRAJCHECKBOX,'Value',true);
 
 end

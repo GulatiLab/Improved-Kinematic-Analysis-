@@ -125,10 +125,18 @@ if trlOutcome ~= '2'
         rchTrajectory_snapshot = vid_fig_hand.ReachMarks(trajectory_window,:);
         rchTrajectory = nan(size(vid_fig_hand.ReachMarks));
         rchTrajectory(trajectory_window,:) = rchTrajectory_snapshot;
-        if sum(isnan(rchTrajectory_snapshot(:)))
-            %Should there be a way to bypass the trajectory recording? Maybe throw the warning but let the trial get logged?
-            displayErrorMessage( 'Reach Trajectory has unrecorded frames. Be sure to mark a position for both the Reach Onset frame and the Retract Onset frame. Trial not logged.');
-            return
+        if vid_fig_hand.TRAJCHECKBOX.Value
+            if sum(isnan(rchTrajectory_snapshot(:)))
+                %Should there be a way to bypass the trajectory recording? Maybe throw the warning but let the trial get logged?
+                displayErrorMessage( 'Reach Trajectory has unrecorded frames. Be sure to mark a position for both the Reach Onset frame and the Retract Onset frame. Trial not logged.');
+                return
+            end
+        else
+            if sum(~isnan(rchTrajectory_snapshot(:)))
+                displayErrorMessage( 'Reach Trajectory is not required but has been partially recorded. If you wanted to save the trajectory check the ''Trajectory Required'' Box and log the trial again. Trial logged without trajectory data.');
+                set(vid_fig_hand.ErrDispText,'BackgroundColor', [1.0 0.95 0.6 ]);
+            end
+            rchTrajectory = nan(size(vid_fig_hand.ReachMarks));
         end
         
     else
@@ -154,9 +162,13 @@ else
 end
 
 if isempty(rtrctonset)
-    traj_out = 'No trajectory data without retract';
+    traj_out = 'No trajectory data saved';
 else
-    traj_out = 'Trajectory Saved';
+    if vid_fig_hand.TRAJCHECKBOX.Value
+        traj_out = 'Trajectory saved';
+    else
+        traj_out = 'No trajectory data saved';
+    end
 end
 
 
