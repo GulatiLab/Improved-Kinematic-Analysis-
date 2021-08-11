@@ -34,10 +34,14 @@ else
 end
 
 try
-    vid_obj.obj = VideoReader([vid_fig_hand.vid_dir, '\', vid_name]);
+    if ispc
+        vid_obj.obj = VideoReader([vid_fig_hand.vid_dir, '\', vid_name]);
+    else
+        vid_obj.obj = VideoReader([vid_fig_hand.vid_dir, '/', vid_name]);
+    end
 catch
     beep
-    displayErrorMessage( 'File named in edit box does not appear to be a usable movie file');
+    displayErrorMessage( 'File named in edit box does not appear to be a usable movie file.');
     return
 end
 
